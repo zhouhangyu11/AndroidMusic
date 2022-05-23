@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MusicPlayer</string>
+    <string name="app_name">播放器</string>
     <string name="title_home">资源库</string>
     <string name="title_dashboard">浏览</string>
     <string name="title_notifications">现在就听</string>
