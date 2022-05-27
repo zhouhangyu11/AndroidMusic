@@ -3,4 +3,5 @@
     <string name="title_home">浏览</string>
     <string name="title_dashboard">资源库</string>
     <string name="title_notifications">现在就听</string>
+    <string name="no_music">没有播放的音乐</string>
 </resources>
