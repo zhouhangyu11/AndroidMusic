@@ -5,8 +5,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,10 +20,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.musicplayer.databinding.ActivityMainBinding;
 
+import java.util.ListResourceBundle;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private boolean isPlay=false;
+    private String[]List = {"本地","最近播放","我的收藏"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
+                R.id.navigation_dashboard).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -73,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //设置创建列表
+        ListView functionList=findViewById(R.id.functionList);
+        ArrayAdapter<String>adapter=new ArrayAdapter<>(this, R.layout.array_adapter,List);
+        functionList.setAdapter(adapter);
     }
 
 
