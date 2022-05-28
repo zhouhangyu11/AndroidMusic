@@ -1,5 +1,6 @@
 package com.example.musicplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -82,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
         ListView functionList=findViewById(R.id.functionList);
         ArrayAdapter<String>adapter=new ArrayAdapter<>(this, R.layout.array_adapter,List);
         functionList.setAdapter(adapter);
+
+        //点击图片进入播放界面
+        musicImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,PlayerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

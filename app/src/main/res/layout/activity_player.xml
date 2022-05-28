@@ -8,11 +8,13 @@
     android:background="#FF000000">
 
     <Button
-        android:layout_width="69dp"
+        android:layout_width="80dp"
         android:layout_height="49dp"
         android:text="退出"
+        android:textSize="17sp"
+        android:textColor="@color/white"
         tools:ignore="MissingConstraints"
-        android:background="@drawable/"
+        android:background="@color/black"
         >
     </Button>
 
@@ -20,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/"
+        android:background="@color/black"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".Music_Activity"
@@ -34,7 +36,7 @@
             android:layout_height="300dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:src="@drawable/Jay" />
+            android:src="@drawable/jay" />
 
         //进度条
 <!--        <RelativeLayout-->
@@ -85,27 +87,33 @@
                 android:id="@+id/btn_play"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_margin="8dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:background="@color/black"
                 android:text="上一首" />
 
             <Button
                 android:id="@+id/btn_pause"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_margin="8dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:background="@color/black"
                 android:text="播放" />
 
             <Button
                 android:id="@+id/btn_exit"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_margin="8dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:background="@color/black"
                 android:text="下一首" />
 
         </LinearLayout>
