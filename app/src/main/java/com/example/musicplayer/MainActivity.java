@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -83,6 +86,25 @@ public class MainActivity extends AppCompatActivity {
         ListView functionList=findViewById(R.id.functionList);
         ArrayAdapter<String>adapter=new ArrayAdapter<>(this, R.layout.array_adapter,List);
         functionList.setAdapter(adapter);
+
+        //为listview绑定监听，点击不同的功能进入不同的界面
+        functionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                switch ((int)id){
+                    case 0:
+                        Intent intent=new Intent(MainActivity.this,LocalMusicActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this,"当前点击"+position,Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this,"当前点击"+position,Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
 
         //点击图片进入播放界面
         musicImg.setOnClickListener(new View.OnClickListener() {

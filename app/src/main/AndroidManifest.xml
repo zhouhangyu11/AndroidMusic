@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayer">
         <activity
+            android:name=".MainActivity2"
+            android:exported="false"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.MusicPlayer.NoActionBar" />
+        <activity
+            android:name=".LocalMusicActivity"
+            android:exported="false"
+            android:label="@string/title_local_music" />
+        <activity
             android:name=".PlayerActivity"
             android:exported="false" />
         <activity
