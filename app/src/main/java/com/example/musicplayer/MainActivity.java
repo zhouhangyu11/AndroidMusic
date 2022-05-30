@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String>adapter=new ArrayAdapter<>(this, R.layout.array_adapter,List);
         functionList.setAdapter(adapter);
 
+
         //为listview绑定监听，点击不同的功能进入不同的界面
         functionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

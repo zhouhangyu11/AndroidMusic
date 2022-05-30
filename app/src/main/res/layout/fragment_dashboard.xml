@@ -17,7 +17,6 @@
             android:layout_height="match_parent"
             android:divider="@color/gray"
             android:dividerHeight="2dp">
-
         </ListView>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

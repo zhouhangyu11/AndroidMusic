@@ -21,8 +21,8 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_dashboard,null);
-        return view;
+
+        return inflater.inflate(R.layout.fragment_dashboard, container, false);
 
 
     }
@@ -31,5 +31,6 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
     }
 }

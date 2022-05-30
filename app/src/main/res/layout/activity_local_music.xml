@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LocalMusicActivity"
+    android:orientation="vertical"
     android:background="@color/black">
-
-   <androidx.viewpager.widget.ViewPager
-       android:id="@+id/viewPage"
+   <com.google.android.material.tabs.TabLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:background="@color/black">
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:background="@color/gray"
+       app:tabTextColor="@color/white"
+       app:tabSelectedTextColor="@color/pink"
+       app:tabIndicatorColor="@color/pink"
+       android:id="@+id/musicTab">
 
-   </androidx.viewpager.widget.ViewPager>
+   </com.google.android.material.tabs.TabLayout>
+
+   <androidx.viewpager2.widget.ViewPager2
+       android:id="@+id/viewPager"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:background="@color/black"
+       android:layout_weight="1">
+
+
+   </androidx.viewpager2.widget.ViewPager2>
 
 </LinearLayout>
