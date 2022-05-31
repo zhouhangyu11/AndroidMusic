@@ -17,6 +17,7 @@ public class LocalMusicActivity extends AppCompatActivity {
     TabLayout musicTab;
     //创建tablayout和viewpaper的连接器
     TabLayoutMediator tabLayoutMediator;
+    //创建ContentResolver
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
