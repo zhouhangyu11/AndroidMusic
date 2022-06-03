@@ -3,17 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SingerFragment"
-    android:id="@+id/singer">
+    tools:context=".SingerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/text_test3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/singer_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="3"
-        android:textColor="@color/white"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

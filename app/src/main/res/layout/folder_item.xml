@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/folder_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/folder" />
+
+    <TextView
+        android:id="@+id/folder_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/folder_image"
+        android:ellipsize="end"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/song_number"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/folder_image"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/folder_path"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/song_number"
+        android:ellipsize="start"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+</RelativeLayout>

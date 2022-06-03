@@ -21,9 +21,7 @@ public class MusicFragmentPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
-            case 0:
-                return new SingleSongFragment();
+        switch (position) {
             case 1:
                 return new AlbumFragment();
             case 2:
@@ -34,6 +32,7 @@ public class MusicFragmentPagerAdapter extends FragmentStateAdapter {
                 return new SingleSongFragment();
         }
     }
+
 
     @Override
     public int getItemCount() {

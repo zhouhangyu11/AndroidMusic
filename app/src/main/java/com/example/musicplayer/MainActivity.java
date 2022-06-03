@@ -1,6 +1,9 @@
 package com.example.musicplayer;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,11 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,21 +25,25 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.musicplayer.databinding.ActivityMainBinding;
-
-import java.util.ListResourceBundle;
+import com.example.musicplayer.utils.PermissionUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private boolean isPlay=false;
-    private String[]List = {"本地","最近播放","我的收藏"};
+    private boolean isPlay = false;
+    private String[] List = {"本地", "最近播放", "我的收藏"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // 请求权限
+        PermissionUtils.initCheckSelfPermission(this);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -61,15 +67,14 @@ public class MainActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isPlay){
+                if (!isPlay) {
                     playBtn.setImageResource(R.drawable.ic_pause);
-                    isPlay=true;
+                    isPlay = true;
                     animation.setInterpolator(lin);
                     musicImg.startAnimation(animation);
-                }
-                else{
+                } else {
                     playBtn.setImageResource(R.drawable.ic_play);
-                    isPlay=false;
+                    isPlay = false;
                     musicImg.clearAnimation();
                 }
             }
@@ -83,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //设置创建列表
-        ListView functionList=findViewById(R.id.functionList);
-        ArrayAdapter<String>adapter=new ArrayAdapter<>(this, R.layout.array_adapter,List);
+        ListView functionList = findViewById(R.id.functionList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.array_adapter, List);
         functionList.setAdapter(adapter);
 
 
@@ -92,16 +97,16 @@ public class MainActivity extends AppCompatActivity {
         functionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                switch ((int)id){
+                switch ((int) id) {
                     case 0:
-                        Intent intent=new Intent(MainActivity.this,LocalMusicActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LocalMusicActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(MainActivity.this,"当前点击"+position,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(MainActivity.this,"当前点击"+position,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -111,12 +116,42 @@ public class MainActivity extends AppCompatActivity {
         musicImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,PlayerActivity.class);
+                Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    showDialog();
+                }
+                break;
+        }
+    }
 
+    private void showDialog() {
+        Dialog dialog = new AlertDialog.Builder(this)
+                .setMessage("请授权必要权限")
+                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        PermissionUtils.initCheckSelfPermission(MainActivity.this);
+                    }
+                })
+                .setNegativeButton("拒绝", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).create();
+        dialog.setCanceledOnTouchOutside(false);//点击屏幕不消失
+        dialog.setCancelable(false);//点击返回键不消失
+        dialog.show();
+    }
 
 }

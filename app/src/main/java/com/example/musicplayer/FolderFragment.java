@@ -1,64 +1,109 @@
 package com.example.musicplayer;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FolderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FolderFragment extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import com.example.musicplayer.adapter.FolderAdapter;
+import com.example.musicplayer.bean.Song;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public FolderFragment() {
-        // Required empty public constructor
-    }
+public class FolderFragment extends Fragment implements Comparator {
+    /*视图*/
+    private View view;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FolderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FolderFragment newInstance(String param1, String param2) {
-        FolderFragment fragment = new FolderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    /*调试用*/
+    private final String TAG = "FolderFragment-ing";
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_folder, container, false);
+
+        // 得到所有歌曲
+        List<Song> songList = new ArrayList<>();
+        int songNum = ((LocalMusicActivity) getActivity()).getSongNum();
+        List<Song> originSongList = ((LocalMusicActivity) getActivity()).getSongList();
+
+        for (int i = 0; i < songNum; i++) {
+            songList.add(originSongList.get(i));
         }
+
+        // 按照所在目录排序
+        Collections.sort(songList, this);
+
+        // 按照所在目录进行分组
+        List<Map<String, Object>> folderList = new ArrayList<>();
+        String prevFolder = null;
+        // 当前目录中的歌曲
+        List<Song> songs;
+        // 记录当前目录信息
+        Map<String, Object> folderMap = new HashMap<>();
+        for (int i = 0; i < songNum; i++) {
+            Song song = songList.get(i);
+            String curPath = song.getPath();
+            // 得到路径中的倒数第二部分，即所在文件夹
+            int end = curPath.lastIndexOf("/");
+            int start = curPath.lastIndexOf("/", end - 1);
+            String curFolder = curPath.substring(start + 1, end);
+            if (prevFolder == null || !prevFolder.equals(curFolder)) {
+                /*将之前的map加入数组中*/
+                if (prevFolder != null) {
+                    folderList.add(folderMap);
+                }
+                folderMap = new HashMap<>();
+                songs = new ArrayList<>();
+                folderMap.put("name", curFolder);
+                folderMap.put("path", curPath);
+                folderMap.put("songNum", 1);
+                songs.add(song);
+                folderMap.put("songs", songs);
+                prevFolder = curFolder;
+            } else {
+                /*更新folderMap*/
+                folderMap.put("songNum", ((int) folderMap.get("songNum")) + 1);
+                ((List<Song>) folderMap.get("songs")).add(song);
+            }
+        }
+        folderList.add(folderMap);
+
+        for (int i = 0; i < 4; i++) {
+            Log.d(TAG, "onCreateView: " + folderList.get(i).get("name") + folderList.get(i).get("songNum"));
+        }
+
+        // 得到RecyclerView
+        RecyclerView folderRecyclerView = view.findViewById(R.id.folder_recycler_view);
+
+        // 设置layoutManager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        folderRecyclerView.setLayoutManager(layoutManager);
+
+        // 设置adapter
+        FolderAdapter folderAdapter = new FolderAdapter(folderList);
+        folderRecyclerView.setAdapter(folderAdapter);
+
+        return view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_folder, container, false);
+    public int compare(Object o, Object t1) {
+        String folderPath1 = ((Song) o).getPath();
+        String folderPath2 = ((Song) t1).getPath();
+
+        return folderPath1.compareTo(folderPath2);
     }
 }
