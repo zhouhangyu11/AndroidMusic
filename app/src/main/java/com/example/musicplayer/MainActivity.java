@@ -1,9 +1,10 @@
 package com.example.musicplayer;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,14 +25,17 @@ import com.example.musicplayer.utils.PermissionUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityMainBinding binding;
+    public MediaPlayer mediaPlayer;
+    public Context context = this;
     private String[] List = {"本地", "最近播放", "我的收藏"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 初始化全局的MediaPlayer对象
+        mediaPlayer = new MediaPlayer();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -60,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch ((int) id) {
                     case 0:
-                        Intent intent = new Intent(MainActivity.this, LocalMusicActivity.class);
-                        PlaybarFragment playbarFragment = (PlaybarFragment) getSupportFragmentManager().findFragmentById(R.id.playbar_fragment);
-                        startActivity(intent);
+                        LocalMusicActivity.beginActivity(context);
                         break;
                     case 1:
                     case 2:

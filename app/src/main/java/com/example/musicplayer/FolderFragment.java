@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class FolderFragment extends Fragment implements Comparator {
@@ -95,8 +96,8 @@ public class FolderFragment extends Fragment implements Comparator {
 
     @Override
     public int compare(Object o, Object t1) {
-        String folderPath1 = ((Song) o).getPath();
-        String folderPath2 = ((Song) t1).getPath();
+        String folderPath1 = ((Song) o).getPath().toLowerCase(Locale.ROOT);
+        String folderPath2 = ((Song) t1).getPath().toLowerCase(Locale.ROOT);
 
         return folderPath1.compareTo(folderPath2);
     }

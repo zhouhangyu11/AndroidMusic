@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.musicplayer.LocalMusicActivity;
+import com.example.musicplayer.MyApplication;
 import com.example.musicplayer.PlaybarFragment;
 import com.example.musicplayer.R;
 import com.example.musicplayer.bean.Song;
@@ -29,10 +29,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     /*所在Activity*/
     LocalMusicActivity activity;
 
-    public SongAdapter(List<Song> songList, MediaPlayer player, LocalMusicActivity activity) {
+    public SongAdapter(List<Song> songList, LocalMusicActivity activity) {
         this.songList = songList;
-        this.mediaPlayer = player;
         this.activity = activity;
+        /*从Application中拿到mediaPlayer*/
+        MyApplication instance = MyApplication.instance;
+        this.mediaPlayer = instance.getMediaPlayer();
     }
 
     @NonNull
@@ -83,7 +85,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public int getItemCount() {
         return this.songList.size();
     }
-
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

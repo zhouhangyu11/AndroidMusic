@@ -1,6 +1,5 @@
 package com.example.musicplayer;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +14,10 @@ import com.example.musicplayer.bean.Song;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SingleSongFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SingleSongFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
@@ -59,18 +55,16 @@ public class SingleSongFragment extends Fragment {
         for (int i = 0; i < songNum; i++) {
             songList.add(originalSongList.get(i));
         }
-        Collections.shuffle(songList);
-        // 得到父Activity上的mediaPlayer
-        MediaPlayer mediaPlayer = activity.getMediaPlayer();
-        SongAdapter songAdapter = new SongAdapter(songList, mediaPlayer, activity);
+        Collections.sort(songList, new Comparator<Song>() {
+            @Override
+            public int compare(Song song, Song t1) {
+                String songName1 = song.getSongName().toLowerCase(Locale.ROOT);
+                String songName2 = t1.getSongName().toLowerCase(Locale.ROOT);
+                return songName1.compareTo(songName2);
+            }
+        });
+        SongAdapter songAdapter = new SongAdapter(songList, activity);
         songRecyclerView.setAdapter(songAdapter);
         return view;
     }
-
-//    @Override
-//    public int compare(Object o, Object t1) {
-//        String songName1=((Song)o).getSongName();
-//        String songName2=((Song)t1).getSongName();
-//        return songName1.compareTo(songName2);
-//    }
 }
