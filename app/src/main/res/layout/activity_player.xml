@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     android:background="#FF000000">
 
-    <Button
-        android:layout_width="80dp"
-        android:layout_height="49dp"
-        android:text="退出"
-        android:textSize="17sp"
-        android:textColor="@color/white"
-        tools:ignore="MissingConstraints"
-        android:background="@color/black"
-        >
-    </Button>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,104 +18,99 @@
         tools:layout_editor_absoluteY="0dp">
 
 
-        <ImageView
-            android:id="@+id/iv_music"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="15dp"
-            android:src="@drawable/jay" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="40dp"
+            app:cardCornerRadius="15dp">
 
-        //进度条
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingLeft="8dp"-->
-<!--            android:paddingRight="8dp"-->
-<!--            tools:ignore="MissingConstraints">-->
+            <ImageView
+                android:id="@+id/iv_music"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="0dp" />
+        </androidx.cardview.widget.CardView>
 
-<!--            <TextView-->
-<!--                android:id="@+id/tv_progress"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="00:00" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_total"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_alignParentRight="true"-->
-<!--                android:text="00:00" />-->
-<!--        </RelativeLayout>-->
 
         <TextView
             android:id="@+id/song_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="以父之名"
+            android:layout_gravity="start"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:ignore="MissingConstraints" />
+            android:textFontWeight="600"
+            android:textSize="24sp" />
+
         <TextView
             android:id="@+id/singer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="周杰伦"
+            android:layout_gravity="start"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="6dp"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:ignore="MissingConstraints" />
+            android:textSize="16sp" />
+
+        <SeekBar
+            android:id="@+id/volume"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="3px"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:progressDrawable="@drawable/seekbar_style"
+            android:thumb="@drawable/seekbar_thumb" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="MissingConstraints">
+            android:layout_marginBottom="50dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_previous"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:background="@color/black"
-                android:text="上一首" />
+                android:src="@drawable/left"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_play"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:background="@color/black"
-                android:text="播放" />
+                android:src="@drawable/start"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_next"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="20sp"
                 android:background="@color/black"
-                android:text="下一首" />
+                android:src="@drawable/right"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
         </LinearLayout>
-
-
-        <SeekBar
-            android:id="@+id/volunm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3px"
-            android:layout_marginTop="5px" />
-            android:
-            tools:ignore="MissingConstraints" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

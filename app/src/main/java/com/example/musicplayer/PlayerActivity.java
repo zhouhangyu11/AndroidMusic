@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,9 +16,9 @@ public class PlayerActivity extends Activity {
     ImageView imageView;
     TextView songName;
     TextView singerName;
-    Button play_btn;
-    Button next_btn;
-    Button previous_btn;
+    ImageButton play_btn;
+    ImageButton next_btn;
+    ImageButton previous_btn;
 
 
     @Override
@@ -39,10 +39,10 @@ public class PlayerActivity extends Activity {
         MusicOperation musicOperation=new MusicOperation();
 
         if(instance.isPlay){
-            play_btn.setText("暂停");
+            play_btn.setImageResource(R.drawable.pausing);
         }
         else {
-            play_btn.setText("播放");
+            play_btn.setImageResource(R.drawable.start);
         }
 
 
@@ -59,11 +59,11 @@ public class PlayerActivity extends Activity {
                         if(instance.isPlay) {//如果这个歌曲正在播放中,点击播放按钮让他暂停
                             mediaPlayer.pause();
                             instance.setPlay(false);//将播放状态设置为停止
-                            play_btn.setText("播放");
+                            play_btn.setImageResource(R.drawable.start);
                         }else {//如果在播放，点击播放让他播放
                             mediaPlayer.start();
                             instance.setPlay(true);//将播放状态设置为停止
-                            play_btn.setText("暂停");
+                            play_btn.setImageResource(R.drawable.pausing);
                         }
                     }
                 });
@@ -80,6 +80,7 @@ public class PlayerActivity extends Activity {
                             mediaPlayer.setDataSource(instance.currentSong.getPath());
                             mediaPlayer.prepare();
                             mediaPlayer.start();
+                            play_btn.setImageResource(R.drawable.pausing);
 
                         }catch (Exception e){
 
@@ -99,6 +100,7 @@ public class PlayerActivity extends Activity {
                             mediaPlayer.setDataSource(instance.currentSong.getPath());
                             mediaPlayer.prepare();
                             mediaPlayer.start();
+                            play_btn.setImageResource(R.drawable.pausing);
 
                         }catch (Exception e){
 

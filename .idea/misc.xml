@@ -7,6 +7,8 @@
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable-v24/ic_dashboard_pink_24dp.xml" value="0.217" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable-v24/ic_home_pink_24dp.xml" value="0.217" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.237" />
+        <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable-xhdpi/seekbar_style.xml" value="0.1405" />
+        <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable-xhdpi/seekbar_thumb.xml" value="0.138" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable/btn_select.xml" value="0.1975" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable/ic___music.xml" value="0.1975" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/drawable/ic__play.xml" value="0.1975" />
@@ -23,7 +25,7 @@
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/activity_local_music.xml" value="0.23072916666666668" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/activity_main2.xml" value="0.23072916666666668" />
-        <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/activity_player.xml" value="0.1" />
+        <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/activity_player.xml" value="0.176" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/album_item.xml" value="0.23072916666666668" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/array_adapter.xml" value="0.23072916666666668" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/layout/folder_item.xml" value="0.23072916666666668" />
