@@ -1,5 +1,6 @@
 package com.example.musicplayer;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.musicplayer.adapter.SongAdapter;
 import com.example.musicplayer.bean.Song;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,8 +59,10 @@ public class SingleSongFragment extends Fragment {
         for (int i = 0; i < songNum; i++) {
             songList.add(originalSongList.get(i));
         }
-//        Collections.shuffle(songList);
-        SongAdapter songAdapter = new SongAdapter(songList);
+        Collections.shuffle(songList);
+        // 得到父Activity上的mediaPlayer
+        MediaPlayer mediaPlayer = activity.getMediaPlayer();
+        SongAdapter songAdapter = new SongAdapter(songList, mediaPlayer, activity);
         songRecyclerView.setAdapter(songAdapter);
         return view;
     }

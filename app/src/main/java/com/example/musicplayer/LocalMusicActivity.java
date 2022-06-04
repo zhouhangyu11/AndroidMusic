@@ -1,6 +1,7 @@
 package com.example.musicplayer;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,9 @@ public class LocalMusicActivity extends AppCompatActivity {
     private TabLayoutMediator tabLayoutMediator;
     // 全局的songList
     public List<Song> songList = new ArrayList<>();
+    // 全局的MusicPlayer
+    MediaPlayer mediaPlayer = new MediaPlayer();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,10 @@ public class LocalMusicActivity extends AppCompatActivity {
         return this.songList.size();
     }
 
+    /*可以从fragment中拿到这个musicPlayer的实例*/
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 
     class AlbumNameComparator implements Comparator {
         @Override

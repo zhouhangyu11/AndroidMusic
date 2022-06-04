@@ -27,7 +27,7 @@ public class LoadSongsUtil {
         String prevAlbumName = null;
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                //去除800k以下歌曲
+                // 跳过小于800k的
                 if (cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.SIZE)) < 1000 * 800) {
                     continue;
                 }
@@ -39,12 +39,13 @@ public class LoadSongsUtil {
                     song.setSingerName(songName.split("-")[0].trim());
                     song.setSongName(songName.split("-")[1].trim());
                 } else {
+                    song.setSingerName("未知歌手");
                     song.setSongName(songName);
                     song.setSingerName("未知歌手");
                 }
-//                 得到歌曲专辑名
+                // 得到歌曲专辑名
                 song.setAlbumName(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM)).trim());
-                Log.d(TAG, "getSongs: "+cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM));
+                Log.d(TAG, "getSongs: " + cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM));
                 // 得到时长
                 song.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DURATION)));
                 // 大小
@@ -56,7 +57,6 @@ public class LoadSongsUtil {
                     prevAlbumName = song.getAlbumName();
                     prevBitmap = loadAlbumBitmap(song.getPath());
                 }
-
 
                 song.setAlbumBitmap(prevBitmap);
                 // 打印信息

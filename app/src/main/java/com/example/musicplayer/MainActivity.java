@@ -6,13 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +26,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private boolean isPlay = false;
     private String[] List = {"本地", "最近播放", "我的收藏"};
 
     @Override
@@ -54,39 +48,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        //获取btn的id并创建监听器
-        ImageButton playBtn = findViewById(R.id.playBtn);
-        ImageButton nextBtn = findViewById(R.id.nextBtn);
-
-        //找到音乐图片，实现旋转
-        ImageView musicImg = findViewById(R.id.musicImg);
-        //设置动画效果，设置匀速转动
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
-        LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
-        //播放按钮事件，实现音乐播放暂停和图片转换，和音乐图片的旋转
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isPlay) {
-                    playBtn.setImageResource(R.drawable.ic_pause);
-                    isPlay = true;
-                    animation.setInterpolator(lin);
-                    musicImg.startAnimation(animation);
-                } else {
-                    playBtn.setImageResource(R.drawable.ic_play);
-                    isPlay = false;
-                    musicImg.clearAnimation();
-                }
-            }
-        });
-        //下一曲按钮，实现下一首
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         //设置创建列表
         ListView functionList = findViewById(R.id.functionList);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.array_adapter, List);
@@ -100,24 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 switch ((int) id) {
                     case 0:
                         Intent intent = new Intent(MainActivity.this, LocalMusicActivity.class);
+                        PlaybarFragment playbarFragment = (PlaybarFragment) getSupportFragmentManager().findFragmentById(R.id.playbar_fragment);
                         startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
-                        break;
                     case 2:
                         Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
                         break;
                 }
-            }
-        });
-
-        //点击图片进入播放界面
-        musicImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
-                startActivity(intent);
             }
         });
     }
