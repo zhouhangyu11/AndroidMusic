@@ -69,10 +69,10 @@
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />
         <TextView
-            android:id="@+id/album_name"
+            android:id="@+id/singer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="夜的第七章"
+            android:text="周杰伦"
             android:textColor="@color/white"
             android:textSize="20sp"
             tools:ignore="MissingConstraints" />

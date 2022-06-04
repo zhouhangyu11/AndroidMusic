@@ -52,6 +52,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     int position = holder.getAdapterPosition();
                     /*拿到歌曲实例*/
                     Song song = songList.get(position);
+                    //创建myApplication单例，并将当前播放的音乐写入myApplication的单例中
+                    MyApplication instance=MyApplication.instance;
+                    instance.setSongList(songList);
+                    instance.nowIndex=position;
+                    instance.setCurrentSong(song);
                     /*首先初始化*/
                     mediaPlayer.reset();
                     /*设置路径并且开始播放*/

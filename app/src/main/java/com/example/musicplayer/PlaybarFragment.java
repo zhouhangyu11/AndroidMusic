@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 public class PlaybarFragment extends Fragment {
+
+
     /*视图*/
     public View view;
     /*调试用*/
@@ -36,6 +38,9 @@ public class PlaybarFragment extends Fragment {
     LinearInterpolator lin;
     MediaPlayer mediaPlayer;
 
+    //初始化myApplication实例
+    MyApplication instance;
+
 
     @Nullable
     @Override
@@ -45,7 +50,7 @@ public class PlaybarFragment extends Fragment {
         mActivity = getActivity();
 
         /*拿到mediaPlayer*/
-        MyApplication instance = MyApplication.instance;
+        instance = MyApplication.instance;
         mediaPlayer = instance.getMediaPlayer();
 
         // 初始化当前播放信息
@@ -87,7 +92,25 @@ public class PlaybarFragment extends Fragment {
         });
         //下一曲按钮，实现下一首
         nextBtn.setOnClickListener(view -> {
+            if(instance.getCurrentSong()!=null) {
+                instance.nowIndex++;
+                instance.setCurrentSong(instance.songList.get(instance.nowIndex));
+                try {
+                    /*首先初始化*/
+                    mediaPlayer.reset();
+                    //设置资源
+                    mediaPlayer.setDataSource(instance.currentSong.getPath());
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                    //设置封面和名称
+                    musicImg.setImageBitmap(instance.getCurrentSong().albumBitmap);
+                    playingHint.setText(instance.getCurrentSong().songName);
+                    //开始播放
+                    startPlaying();
+                }catch (Exception e){
 
+                }
+            }
         });
 
         //点击图片进入播放界面
@@ -105,6 +128,12 @@ public class PlaybarFragment extends Fragment {
         isPlay = mediaPlayer.isPlaying();
         if (isPlay) {
             playBtn.setImageResource(R.drawable.ic_pause);
+            animation.setInterpolator(lin);
+            musicImg.startAnimation(animation);
+        }
+        if(instance.getCurrentSong()!=null) {
+        musicImg.setImageBitmap(instance.getCurrentSong().albumBitmap);
+        playingHint.setText(instance.getCurrentSong().songName);
         }
     }
 
