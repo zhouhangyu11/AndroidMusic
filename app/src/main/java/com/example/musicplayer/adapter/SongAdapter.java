@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,7 @@ import com.example.musicplayer.bean.Song;
 
 import java.util.List;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder>  {
     /*歌曲列表*/
     public List<Song> songList;
 
@@ -26,7 +27,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+       final ViewHolder holder = new ViewHolder(view);
+       holder.songView.setOnClickListener(new View.OnClickListener() {//设置点击事件
+           @Override
+           public void onClick(View v) {
+               int position=holder.getAdapterPosition();//设置位置
+               Song song=songList.get(position);
+               Toast.makeText(v.getContext(),"点击了"+song.getSongName(),Toast.LENGTH_SHORT).show();
+           }
+       });
         return holder;
     }
 
@@ -44,6 +53,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public int getItemCount() {
         return this.songList.size();
     }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View songView;

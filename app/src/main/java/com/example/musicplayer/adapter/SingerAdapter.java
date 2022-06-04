@@ -1,5 +1,6 @@
 package com.example.musicplayer.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,9 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
         Map<String, Object> singer = singerList.get(position);
         holder.singerName.setText((String) singer.get("name"));
         holder.songNum.setText(singer.get("songNum").toString() + "首");
+        Log.d(TAG, "onBindViewHolder: "+((String) singer.get("name")));
         String name = ((String) singer.get("name")).toLowerCase();
+
         name = name.replace(" ", "");
         switch (name) {
             case ("lorde"): {

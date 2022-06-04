@@ -1,7 +1,6 @@
 package com.example.musicplayer;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +80,9 @@ public class FolderFragment extends Fragment implements Comparator {
         }
         folderList.add(folderMap);
 
-        for (int i = 0; i < 4; i++) {
-            Log.d(TAG, "onCreateView: " + folderList.get(i).get("name") + folderList.get(i).get("songNum"));
-        }
+//        for (int i = 0; i < 4; i++) {
+//            Log.d(TAG, "onCreateView: " + folderList.get(i).get("name") + folderList.get(i).get("songNum"));
+//        }
 
         // 得到RecyclerView
         RecyclerView folderRecyclerView = view.findViewById(R.id.folder_recycler_view);

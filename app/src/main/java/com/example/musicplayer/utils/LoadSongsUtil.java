@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.example.musicplayer.bean.Song;
 
@@ -26,6 +27,10 @@ public class LoadSongsUtil {
         String prevAlbumName = null;
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                //去除800k以下歌曲
+                if (cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.SIZE)) < 1000 * 800) {
+                    continue;
+                }
                 Song song = new Song();
                 // 得到歌曲名，去除后缀
                 String songName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DISPLAY_NAME));
@@ -35,9 +40,11 @@ public class LoadSongsUtil {
                     song.setSongName(songName.split("-")[1].trim());
                 } else {
                     song.setSongName(songName);
+                    song.setSingerName("未知歌手");
                 }
-                // 得到歌曲专辑名
+//                 得到歌曲专辑名
                 song.setAlbumName(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM)).trim());
+                Log.d(TAG, "getSongs: "+cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.ALBUM));
                 // 得到时长
                 song.setDuration(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.AudioColumns.DURATION)));
                 // 大小
@@ -49,10 +56,8 @@ public class LoadSongsUtil {
                     prevAlbumName = song.getAlbumName();
                     prevBitmap = loadAlbumBitmap(song.getPath());
                 }
-                // 跳过小于800k的
-                if (song.getSize() < 1000 * 800) {
-                    continue;
-                }
+
+
                 song.setAlbumBitmap(prevBitmap);
                 // 打印信息
                 // Log.d(TAG, song.toString());

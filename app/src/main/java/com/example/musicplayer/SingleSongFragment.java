@@ -13,7 +13,6 @@ import com.example.musicplayer.adapter.SongAdapter;
 import com.example.musicplayer.bean.Song;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,9 +57,16 @@ public class SingleSongFragment extends Fragment {
         for (int i = 0; i < songNum; i++) {
             songList.add(originalSongList.get(i));
         }
-        Collections.shuffle(songList);
+//        Collections.shuffle(songList);
         SongAdapter songAdapter = new SongAdapter(songList);
         songRecyclerView.setAdapter(songAdapter);
         return view;
     }
+
+//    @Override
+//    public int compare(Object o, Object t1) {
+//        String songName1=((Song)o).getSongName();
+//        String songName2=((Song)t1).getSongName();
+//        return songName1.compareTo(songName2);
+//    }
 }

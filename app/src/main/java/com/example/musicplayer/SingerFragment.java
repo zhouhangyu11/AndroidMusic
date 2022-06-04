@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SingerFragment extends Fragment {
+public class SingerFragment extends Fragment  {
     /*视图*/
     private View view;
     /*debug用的TAG*/
