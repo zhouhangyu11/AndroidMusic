@@ -19,6 +19,16 @@ public class MyApplication extends Application {
     public Song currentSong;
     //当前播放音乐的下标
     public int nowIndex;
+    //当前音乐状态
+    boolean isPlay=false;
+
+    public boolean getPlay() {
+        return isPlay;
+    }
+
+    public void setPlay(boolean isPlay) {
+        this.isPlay = isPlay;
+    }
 
     public int getNowIndex() {
         return nowIndex;

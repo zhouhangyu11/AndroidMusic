@@ -87,6 +87,7 @@ public class PlaybarFragment extends Fragment {
                 }
                 playBtn.setImageResource(R.drawable.ic_play);
                 isPlay = false;
+                instance.setPlay(isPlay);
                 musicImg.clearAnimation();
             }
         });
@@ -125,12 +126,15 @@ public class PlaybarFragment extends Fragment {
     public void onStart() {
         super.onStart();
         // 通过mediaPlayer来判断是否正在播放
-        isPlay = mediaPlayer.isPlaying();
-        if (isPlay) {
+        if (instance.isPlay) {
             playBtn.setImageResource(R.drawable.ic_pause);
             animation.setInterpolator(lin);
             musicImg.startAnimation(animation);
+        }else{
+            playBtn.setImageResource(R.drawable.ic_play);
+            musicImg.clearAnimation();
         }
+
         if(instance.getCurrentSong()!=null) {
         musicImg.setImageBitmap(instance.getCurrentSong().albumBitmap);
         playingHint.setText(instance.getCurrentSong().songName);
@@ -140,6 +144,7 @@ public class PlaybarFragment extends Fragment {
     public void startPlaying() {
         playBtn.setImageResource(R.drawable.ic_pause);
         isPlay = true;
+        instance.setPlay(isPlay);
         animation.setInterpolator(lin);
         musicImg.startAnimation(animation);
     }
