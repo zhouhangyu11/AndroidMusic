@@ -43,11 +43,14 @@
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/menu/bottom_nav_menu.xml" value="0.23072916666666668" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.237" />
         <entry key="..\:/Android/MusicPlayer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.237" />
+        <entry key="..\:/Users/lukew/AppData/Local/Android/Sdk/platforms/android-32/android.jar!/res/layout/dialog_custom_title_material.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/activity_album.xml" value="0.1" />
+        <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/activity_folder.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/activity_main.xml" value="0.2419456727732154" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/activity_singer.xml" value="0.1" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/album_song_item.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/fragment_single_song.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/singer_song_item.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/layout/song_item.xml" value="0.1" />
         <entry key="..\:/Users/lukew/OneDrive/Repositories/AndroidMusic/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19947916666666668" />
       </map>

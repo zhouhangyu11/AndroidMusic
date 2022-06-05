@@ -43,17 +43,14 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
         ViewHolder holder = new ViewHolder(view);
 
         // 点击歌手进入其主页
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-                Map<String, Object> singer = singerList.get(position);
-                List<Song> songList = (List<Song>) singer.get("songs");
-                String singerName = ((String) singer.get("name")).toLowerCase();
-                singerName = singerName.replace(" ", "");
-                int singerImage = getSingerImage(singerName);
-                SingerActivity.beginActivity(activity, songList, singerImage);
-            }
+        view.setOnClickListener(view1 -> {
+            int position = holder.getAdapterPosition();
+            Map<String, Object> singer = singerList.get(position);
+            List<Song> songList = (List<Song>) singer.get("songs");
+            String singerName = ((String) singer.get("name")).toLowerCase();
+            singerName = singerName.replace(" ", "");
+            int singerImage = getSingerImage(singerName);
+            SingerActivity.beginActivity(activity, songList, singerImage);
         });
 
         return holder;

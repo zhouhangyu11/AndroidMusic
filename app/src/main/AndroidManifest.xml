@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayer">
         <activity
+            android:name=".FolderActivity"
+            android:exported="false"
+            android:label="文件夹" />
+        <activity
             android:name=".SingerActivity"
             android:exported="false"
             android:label="歌手主页" />

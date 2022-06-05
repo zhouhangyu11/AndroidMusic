@@ -63,7 +63,7 @@ public class SingleSongFragment extends Fragment {
                 return songName1.compareTo(songName2);
             }
         });
-        SongAdapter songAdapter = new SongAdapter(songList, activity);
+        SongAdapter songAdapter = new SongAdapter(songList, activity, R.layout.song_item);
         songRecyclerView.setAdapter(songAdapter);
         return view;
     }

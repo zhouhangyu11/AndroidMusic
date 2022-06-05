@@ -28,19 +28,22 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public MediaPlayer mediaPlayer;
     /*所在Activity*/
     FragmentActivity activity;
+    /*子项layout文件的id*/
+    int resourceId;
 
-    public SongAdapter(List<Song> songList, FragmentActivity activity) {
+    public SongAdapter(List<Song> songList, FragmentActivity activity, int resourceId) {
         this.songList = songList;
         this.activity = activity;
         /*从Application中拿到mediaPlayer*/
         MyApplication instance = MyApplication.instance;
         this.mediaPlayer = instance.getMediaPlayer();
+        this.resourceId = resourceId;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(this.resourceId, parent, false);
         ViewHolder holder = new ViewHolder(view);
         /*设置事件监听*/
         view.setOnClickListener(new View.OnClickListener() {

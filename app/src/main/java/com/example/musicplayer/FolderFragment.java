@@ -88,7 +88,7 @@ public class FolderFragment extends Fragment implements Comparator {
         folderRecyclerView.setLayoutManager(layoutManager);
 
         // 设置adapter
-        FolderAdapter folderAdapter = new FolderAdapter(folderList);
+        FolderAdapter folderAdapter = new FolderAdapter(folderList, getActivity());
         folderRecyclerView.setAdapter(folderAdapter);
 
         return view;

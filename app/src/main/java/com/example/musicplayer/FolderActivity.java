@@ -3,7 +3,6 @@ package com.example.musicplayer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,37 +14,37 @@ import com.example.musicplayer.bean.Song;
 
 import java.util.List;
 
-public class SingerActivity extends AppCompatActivity {
-    public static void beginActivity(Context context, List<Song> songList, int singer_image) {
-        Intent intent = new Intent(context, SingerActivity.class);
+public class FolderActivity extends AppCompatActivity {
+    public static void beginActivity(Context context, List<Song> songList, String folderName, String folderPath) {
+        Intent intent = new Intent(context, FolderActivity.class);
         // 将songList放入application中
         MyApplication.instance.setClassifiedSongs(songList);
-        // 将照片放入intent中
-        intent.putExtra("singer_image", singer_image);
+        // 将文件夹名字以及路径放入intent
+        intent.putExtra("folderName", folderName);
+        intent.putExtra("folderPath", folderPath);
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_singer);
+        setContentView(R.layout.activity_folder);
 
-        // 从MyApplication中拿到SongList
+        // 从intent中拿到文件夹名字以及路径
+        Intent intent = getIntent();
+        String folderName = intent.getStringExtra("folderName");
+        String folderPath = intent.getStringExtra("folderPath");
+
+        // 从MyApplication中拿到songList
         MyApplication instance = MyApplication.instance;
         List<Song> songList = instance.getClassifiedSongs();
         instance.setClassifiedSongs(null);
 
-        // 从intent中拿到singerImage
-        Intent intent = getIntent();
-        int singer_img_int = intent.getIntExtra("singer_image", R.drawable.singer);
-
-        Song song = songList.get(0);
-        //设置封面
-        ImageView singerImage = findViewById(R.id.singer_image);
-        singerImage.setImageResource(singer_img_int);
-        // 设置歌手名
-        TextView singerName = findViewById(R.id.singer_name);
-        singerName.setText(song.getSingerName());
+        // 设置路径以及文件夹名字
+        TextView folderNameView = findViewById(R.id.folder_name);
+        TextView folderPathView = findViewById(R.id.folder_path);
+        folderNameView.setText(folderName);
+        folderPathView.setText(folderPath);
 
         /*得到RecyclerView*/
         RecyclerView songRecyclerView = findViewById(R.id.song_list);
@@ -55,7 +54,7 @@ public class SingerActivity extends AppCompatActivity {
         songRecyclerView.setLayoutManager(layoutManager);
 
         /*设置Adapter*/
-        SongAdapter songAdapter = new SongAdapter(songList, this, R.layout.singer_song_item);
+        SongAdapter songAdapter = new SongAdapter(songList, this, R.layout.song_item);
         songRecyclerView.setAdapter(songAdapter);
     }
 }
