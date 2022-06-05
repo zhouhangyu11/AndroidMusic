@@ -14,13 +14,15 @@ public class MyApplication extends Application {
     public static MyApplication instance;
 
     //播放列表
-    public List<Song>songList;
+    public List<Song> songList;
     //当前播放音乐
     public Song currentSong;
     //当前播放音乐的下标
     public int nowIndex;
     //当前音乐状态
-    boolean isPlay=false;
+    boolean isPlay = false;
+    // 当前专辑列表
+    public List<Song> classifiedSongs;
 
     public boolean getPlay() {
         return isPlay;
@@ -54,8 +56,17 @@ public class MyApplication extends Application {
     public void setCurrentSong(Song currentSong) {
         this.currentSong = currentSong;
     }
+
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    public List<Song> getClassifiedSongs() {
+        return classifiedSongs;
+    }
+
+    public void setClassifiedSongs(List<Song> classifiedSongs) {
+        this.classifiedSongs = classifiedSongs;
     }
 
     @Override

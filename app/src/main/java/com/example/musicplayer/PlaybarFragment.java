@@ -3,7 +3,6 @@ package com.example.musicplayer;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,6 @@ public class PlaybarFragment extends Fragment {
     public View view;
     /*调试用*/
     final String TAG = "PlaybarFragment-ing";
-    /*明确当前状态*/
-    public boolean isPlay;
     public ImageButton playBtn;
     public ImageButton nextBtn;
     public ImageView musicImg;
@@ -67,33 +64,31 @@ public class PlaybarFragment extends Fragment {
 
         //播放按钮事件，实现音乐播放暂停和图片转换，和音乐图片的旋转
         playBtn.setOnClickListener(view -> {
-            if (!isPlay) {
+            if (!instance.isPlay) {
                 /*得到父Activity中的MediaPlayer并且开始播放*/
                 try {
                     if (mediaPlayer.getDuration() > 0) {
                         mediaPlayer.start();
                         startPlaying();
+                        instance.setPlay(true);
                     }
                 } catch (Exception e) {
-                    Log.d(TAG, "onClick: " + "error");
                     e.printStackTrace();
                 }
             } else {
                 /*得到父Activity中的MediaPlayer并且暂停*/
                 try {
                     mediaPlayer.pause();
+                    stopPlaying();
+                    instance.setPlay(false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                playBtn.setImageResource(R.drawable.ic_play);
-                isPlay = false;
-                instance.setPlay(isPlay);
-                musicImg.clearAnimation();
             }
         });
         //下一曲按钮，实现下一首
         nextBtn.setOnClickListener(view -> {
-            if(instance.getCurrentSong()!=null) {
+            if (instance.getCurrentSong() != null) {
                 instance.nowIndex++;
                 instance.setCurrentSong(instance.songList.get(instance.nowIndex));
                 try {
@@ -108,14 +103,14 @@ public class PlaybarFragment extends Fragment {
                     playingHint.setText(instance.getCurrentSong().songName);
                     //开始播放
                     startPlaying();
-                }catch (Exception e){
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
 
-        //点击图片进入播放界面
-        musicImg.setOnClickListener(view -> {
+        //点击进入播放界面
+        view.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), PlayerActivity.class);
             startActivity(intent);
         });
@@ -127,25 +122,28 @@ public class PlaybarFragment extends Fragment {
         super.onStart();
         // 通过mediaPlayer来判断是否正在播放
         if (instance.isPlay) {
-            playBtn.setImageResource(R.drawable.ic_pause);
-            animation.setInterpolator(lin);
-            musicImg.startAnimation(animation);
-        }else{
-            playBtn.setImageResource(R.drawable.ic_play);
-            musicImg.clearAnimation();
+            startPlaying();
+        } else {
+            stopPlaying();
         }
 
-        if(instance.getCurrentSong()!=null) {
-        musicImg.setImageBitmap(instance.getCurrentSong().albumBitmap);
-        playingHint.setText(instance.getCurrentSong().songName);
+        // 设置图片
+        if (instance.getCurrentSong() != null) {
+            musicImg.setImageBitmap(instance.getCurrentSong().albumBitmap);
+            playingHint.setText(instance.getCurrentSong().songName);
         }
     }
 
+    /*开始播放设置状态*/
     public void startPlaying() {
         playBtn.setImageResource(R.drawable.ic_pause);
-        isPlay = true;
-        instance.setPlay(isPlay);
         animation.setInterpolator(lin);
         musicImg.startAnimation(animation);
+    }
+
+    /*暂停播放设置状态*/
+    public void stopPlaying() {
+        playBtn.setImageResource(R.drawable.ic_play);
+        musicImg.clearAnimation();
     }
 }

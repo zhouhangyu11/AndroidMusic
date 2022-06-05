@@ -53,7 +53,7 @@ public class AlbumFragment extends Fragment {
         albumRecyclerView.setLayoutManager(layoutManager);
 
         // 设置Adapter
-        AlbumAdapter albumAdapter = new AlbumAdapter(albumList);
+        AlbumAdapter albumAdapter = new AlbumAdapter(albumList, songList, getActivity());
         albumRecyclerView.setAdapter(albumAdapter);
 
         return view;

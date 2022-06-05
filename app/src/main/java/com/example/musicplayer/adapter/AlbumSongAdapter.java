@@ -1,10 +1,11 @@
 package com.example.musicplayer.adapter;
 
+import static java.lang.String.valueOf;
+
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,7 @@ import com.example.musicplayer.bean.Song;
 import java.io.IOException;
 import java.util.List;
 
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.ViewHolder> {
     /*调试用*/
     private static final String TAG = "SongAdapter";
     /*歌曲列表*/
@@ -29,7 +30,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     /*所在Activity*/
     FragmentActivity activity;
 
-    public SongAdapter(List<Song> songList, FragmentActivity activity) {
+    public AlbumSongAdapter(List<Song> songList, FragmentActivity activity) {
         this.songList = songList;
         this.activity = activity;
         /*从Application中拿到mediaPlayer*/
@@ -40,7 +41,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_song_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         /*设置事件监听*/
         view.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +82,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Song song = this.songList.get(position);
 
-        // 设置图片以及文本
-        holder.albumImage.setImageBitmap(song.getAlbumBitmap());
+        // 设置编号以及文本
+        holder.songId.setText(valueOf(position));
         holder.songName.setText(song.getSongName());
-        holder.singerName.setText(song.getSingerName());
     }
 
     @Override
@@ -95,16 +95,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View songView;
-        public ImageView albumImage;
         public TextView songName;
-        public TextView singerName;
+        public TextView songId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             songView = itemView;
-            albumImage = songView.findViewById(R.id.songImg);
             songName = songView.findViewById(R.id.songName);
-            singerName = songView.findViewById(R.id.singerNameOfSong);
+            songId = songView.findViewById(R.id.song_id);
         }
     }
 }

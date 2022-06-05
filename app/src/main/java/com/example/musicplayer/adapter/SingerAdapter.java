@@ -8,9 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.musicplayer.R;
+import com.example.musicplayer.SingerActivity;
+import com.example.musicplayer.bean.Song;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +25,13 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
     /*Singer数组，每个对象包括歌手名，以及对应的歌曲数目*/
     List<Map<String, Object>> singerList = new ArrayList<>();
     final String TAG = "SingerAdapter-ing";
+    FragmentActivity activity;
 
-    public SingerAdapter(List<Map<String, Object>> singers) {
+
+    public SingerAdapter(List<Map<String, Object>> singers, FragmentActivity activity) {
         this.singerList = singers;
         Collections.sort(this.singerList, this);
+        this.activity = activity;
     }
 
     @NonNull
@@ -35,6 +41,21 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
 
         // 得到ViewHolder用于重用
         ViewHolder holder = new ViewHolder(view);
+
+        // 点击歌手进入其主页
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Map<String, Object> singer = singerList.get(position);
+                List<Song> songList = (List<Song>) singer.get("songs");
+                String singerName = ((String) singer.get("name")).toLowerCase();
+                singerName = singerName.replace(" ", "");
+                int singerImage = getSingerImage(singerName);
+                SingerActivity.beginActivity(activity, songList, singerImage);
+            }
+        });
+
         return holder;
     }
 
@@ -43,31 +64,11 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
         Map<String, Object> singer = singerList.get(position);
         holder.singerName.setText((String) singer.get("name"));
         holder.songNum.setText(singer.get("songNum").toString() + "首");
-        Log.d(TAG, "onBindViewHolder: "+((String) singer.get("name")));
+        Log.d(TAG, "onBindViewHolder: " + ((String) singer.get("name")));
         String name = ((String) singer.get("name")).toLowerCase();
 
         name = name.replace(" ", "");
-        switch (name) {
-            case ("lorde"): {
-                holder.singerImage.setImageResource(R.drawable.lorde);
-                break;
-            }
-            case ("taylorswift"): {
-                holder.singerImage.setImageResource(R.drawable.taylorswift);
-                break;
-            }
-            case ("misia"): {
-                holder.singerImage.setImageResource(R.drawable.misia);
-                break;
-            }
-            default: {
-                holder.singerImage.setImageResource(R.drawable.singer);
-                break;
-            }
-        }
-        if (name.equals("袁娅维tiaray")) {
-            holder.singerImage.setImageResource((R.drawable.tiaray));
-        }
+        holder.singerImage.setImageResource(getSingerImage(name));
     }
 
     @Override
@@ -95,6 +96,26 @@ public class SingerAdapter extends RecyclerView.Adapter<SingerAdapter.ViewHolder
             singerImage = singerView.findViewById(R.id.singer_image);
             singerName = singerView.findViewById(R.id.singer_name);
             songNum = singerView.findViewById(R.id.song_number);
+        }
+    }
+
+    public int getSingerImage(String singerName) {
+        switch (singerName) {
+            case ("lorde"): {
+                return R.drawable.lorde;
+            }
+            case ("taylorswift"): {
+                return R.drawable.taylorswift;
+            }
+            case ("misia"): {
+                return R.drawable.misia;
+            }
+            case ("袁娅维tiaray"): {
+                return R.drawable.tiaray;
+            }
+            default: {
+                return R.drawable.singer;
+            }
         }
     }
 }

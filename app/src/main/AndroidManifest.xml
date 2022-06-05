@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayer">
         <activity
+            android:name=".SingerActivity"
+            android:exported="false"
+            android:label="歌手主页" />
+        <activity
             android:name=".LocalMusicActivity"
             android:exported="false"
             android:label="@string/title_local_music" />
@@ -30,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlbumActivity"
+            android:label="专辑主页" />
     </application>
 
 </manifest>

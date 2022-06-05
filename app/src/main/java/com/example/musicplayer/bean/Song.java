@@ -2,7 +2,9 @@ package com.example.musicplayer.bean;
 
 import android.graphics.Bitmap;
 
-public class Song {//歌曲类的数据类
+import java.io.Serializable;
+
+public class Song implements Serializable {//歌曲类的数据类
     public String songName;//歌曲名
     public String singerName;//歌手名
     public String albumName; // 专辑名
