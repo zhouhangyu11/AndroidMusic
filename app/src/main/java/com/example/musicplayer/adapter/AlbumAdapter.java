@@ -23,7 +23,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     public FragmentActivity activity;
 
     /*构造方法*/
-
     public AlbumAdapter(List<Song> albumList, List<Song> songList, FragmentActivity activity) {
         this.albumList = albumList;
         this.songList = songList;
@@ -38,33 +37,30 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         ViewHolder holder = new ViewHolder(view);
 
         // 点击专辑，跳转到AlbumActivity，并且传入对应歌曲列表
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 得到专辑名
-                int position = holder.getAdapterPosition();
-                String albumName = albumList.get(position).getAlbumName();
-                // 过滤得到专辑中的歌
-                List<Song> songs = new ArrayList<>();
-                // 传入的songList是按照专辑名排序了的
-                int size = songList.size();
-                for (int i = 0; i < size; i++) {
-                    Song song = songList.get(i);
-                    if (!song.getAlbumName().equals(albumName)) {
-                        continue;
-                    }
-                    for (int j = i; j < size; j++) {
-                        song = songList.get(j);
-                        if (song.getAlbumName().equals(albumName)) {
-                            songs.add(song);
-                        } else {
-                            break;
-                        }
-                    }
-                    break;
+        view.setOnClickListener(view1 -> {
+            // 得到专辑名
+            int position = holder.getAdapterPosition();
+            String albumName = albumList.get(position).getAlbumName();
+            // 过滤得到专辑中的歌
+            List<Song> songs = new ArrayList<>();
+            // 传入的songList是按照专辑名排序了的
+            int size = songList.size();
+            for (int i = 0; i < size; i++) {
+                Song song = songList.get(i);
+                if (!song.getAlbumName().equals(albumName)) {
+                    continue;
                 }
-                AlbumActivity.beginActivity(activity, songs);
+                for (int j = i; j < size; j++) {
+                    song = songList.get(j);
+                    if (song.getAlbumName().equals(albumName)) {
+                        songs.add(song);
+                    } else {
+                        break;
+                    }
+                }
+                break;
             }
+            AlbumActivity.beginActivity(activity, songs);
         });
         return holder;
     }
@@ -82,7 +78,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         return this.albumList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public View albumView;
         public ImageView albumImage;
         public TextView albumName;

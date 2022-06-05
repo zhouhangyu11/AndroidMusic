@@ -15,24 +15,20 @@ import com.example.musicplayer.adapter.FolderAdapter;
 import com.example.musicplayer.bean.Song;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class FolderFragment extends Fragment implements Comparator {
-    /*视图*/
-    private View view;
-
+public class FolderFragment extends Fragment {
     /*调试用*/
     private final String TAG = "FolderFragment-ing";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_folder, container, false);
+        /*视图*/
+        View view = inflater.inflate(R.layout.fragment_folder, container, false);
 
         // 得到所有歌曲
         List<Song> songList = new ArrayList<>();
@@ -44,7 +40,12 @@ public class FolderFragment extends Fragment implements Comparator {
         }
 
         // 按照所在目录排序
-        Collections.sort(songList, this);
+        songList.sort((Song song1, Song song2) -> {
+            String folderPath1 = song1.getPath().toLowerCase(Locale.ROOT);
+            String folderPath2 = song2.getPath().toLowerCase(Locale.ROOT);
+
+            return folderPath1.compareTo(folderPath2);
+        });
 
         // 按照所在目录进行分组
         List<Map<String, Object>> folderList = new ArrayList<>();
@@ -92,13 +93,5 @@ public class FolderFragment extends Fragment implements Comparator {
         folderRecyclerView.setAdapter(folderAdapter);
 
         return view;
-    }
-
-    @Override
-    public int compare(Object o, Object t1) {
-        String folderPath1 = ((Song) o).getPath().toLowerCase(Locale.ROOT);
-        String folderPath2 = ((Song) t1).getPath().toLowerCase(Locale.ROOT);
-
-        return folderPath1.compareTo(folderPath2);
     }
 }

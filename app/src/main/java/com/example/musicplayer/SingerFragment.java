@@ -20,21 +20,21 @@ import java.util.List;
 import java.util.Map;
 
 public class SingerFragment extends Fragment {
-    /*视图*/
-    private View view;
     /*debug用的TAG*/
     private static final String TAG = "SingerFragment-ing";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_singer, container, false);
+        /*视图*/
+        View view = inflater.inflate(R.layout.fragment_singer, container, false);
 
         /*初始化Map数组*/
         List<Map<String, Object>> singerList = new ArrayList<>();
         /*记录每个歌手在数组中的位置*/
         Map<String, Integer> singerLocationMap = new HashMap<>();
         LocalMusicActivity activity = (LocalMusicActivity) getActivity();
+        assert activity != null;
         List<Song> songList = activity.getSongList();
         int songNum = activity.getSongNum();
 

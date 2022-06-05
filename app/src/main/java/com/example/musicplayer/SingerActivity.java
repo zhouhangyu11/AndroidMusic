@@ -14,6 +14,7 @@ import com.example.musicplayer.adapter.SongAdapter;
 import com.example.musicplayer.bean.Song;
 
 import java.util.List;
+import java.util.Locale;
 
 public class SingerActivity extends AppCompatActivity {
     public static void beginActivity(Context context, List<Song> songList, int singer_image) {
@@ -34,6 +35,13 @@ public class SingerActivity extends AppCompatActivity {
         MyApplication instance = MyApplication.instance;
         List<Song> songList = instance.getClassifiedSongs();
         instance.setClassifiedSongs(null);
+
+        // 将songList排序
+        songList.sort((song, t1) -> {
+            String songName1 = song.getSongName().toLowerCase(Locale.ROOT);
+            String songName2 = t1.getSongName().toLowerCase(Locale.ROOT);
+            return songName1.compareTo(songName2);
+        });
 
         // 从intent中拿到singerImage
         Intent intent = getIntent();

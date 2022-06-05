@@ -32,7 +32,9 @@ public class AlbumFragment extends Fragment {
         LocalMusicActivity activity = (LocalMusicActivity) getActivity();
         List<Song> albumList = new ArrayList<>();
         // 默认是按照专辑名字升序排列的
+        assert activity != null;
         List<Song> songList = activity.getSongList();
+        // 得到所有歌曲数量
         int songNum = activity.getSongNum();
         String prevAlbumName = null;
 

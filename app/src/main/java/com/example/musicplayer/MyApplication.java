@@ -13,6 +13,9 @@ public class MyApplication extends Application {
     /*静态属性instance，因为Application是单例*/
     public static MyApplication instance;
 
+    // 存储第一次扫描得到的所有歌曲
+    public List<Song> scannedSongs;
+
     //播放列表
     public List<Song> songList;
     //当前播放音乐
@@ -67,6 +70,14 @@ public class MyApplication extends Application {
 
     public void setClassifiedSongs(List<Song> classifiedSongs) {
         this.classifiedSongs = classifiedSongs;
+    }
+
+    public List<Song> getScannedSongs() {
+        return scannedSongs;
+    }
+
+    public void setScannedSongs(List<Song> scannedSongs) {
+        this.scannedSongs = scannedSongs;
     }
 
     @Override
