@@ -27,6 +27,19 @@ public class MyApplication extends Application {
     // 当前专辑列表
     public List<Song> classifiedSongs;
 
+    //当前歌曲时长
+    public int duration;
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+
+
     public boolean getPlay() {
         return isPlay;
     }

@@ -61,12 +61,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     instance.nowIndex = position;
                     instance.setCurrentSong(song);
                     instance.setPlay(true);
+
                     /*首先初始化*/
                     mediaPlayer.reset();
                     /*设置路径并且开始播放*/
                     mediaPlayer.setDataSource(song.getPath());
                     mediaPlayer.prepare();
                     mediaPlayer.start();
+
+
                     /*修改playbarFragment的样子*/
                     PlaybarFragment playbarFragment = (PlaybarFragment) activity.getSupportFragmentManager().findFragmentById(R.id.playbar_fragment);
                     playbarFragment.musicImg.setImageBitmap(song.getAlbumBitmap());
