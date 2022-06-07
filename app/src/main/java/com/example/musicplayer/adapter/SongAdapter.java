@@ -59,6 +59,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     //创建myApplication单例，并将当前播放的音乐写入myApplication的单例中
                     MyApplication instance = MyApplication.instance;
                     instance.setSongList(songList);
+                    instance.addToRecent(song);
                     instance.nowIndex = position;
                     instance.setCurrentSong(song);
                     instance.setPlay(true);

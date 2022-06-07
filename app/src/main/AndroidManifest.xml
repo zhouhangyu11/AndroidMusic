@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicPlayer">
         <activity
+            android:name=".RecentPlay"
+            android:label="最近播放"
+            android:exported="false" />
+        <activity
             android:name=".FolderActivity"
             android:exported="false"
             android:label="文件夹" />

@@ -120,6 +120,7 @@ public class PlayerActivity extends Activity {
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
                     seekBar.setProgress(0);
+                    instance.addToRecent(instance.currentSong);//加入最近播放列表
 //                    now_position.setText(formatTime("mm:ss",instance.getMediaPlayer().getCurrentPosition()));
                     try {
                         //设置资源
@@ -146,6 +147,7 @@ public class PlayerActivity extends Activity {
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
                     seekBar.setProgress(0);
+                    instance.addToRecent(instance.currentSong);//加入最近播放列表
                     try {
                         //设置资源
                         mediaPlayer.reset();

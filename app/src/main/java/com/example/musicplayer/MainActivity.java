@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     LocalMusicActivity.beginActivity(context);
                     break;
                 case 1:
+                    RecentPlay.beginActivity(context);
+                    break;
                 case 2:
                     Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
                     break;

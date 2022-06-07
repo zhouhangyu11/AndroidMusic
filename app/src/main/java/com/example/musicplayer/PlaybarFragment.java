@@ -91,6 +91,7 @@ public class PlaybarFragment extends Fragment {
             if (instance.getCurrentSong() != null) {
                 instance.nowIndex++;
                 instance.setCurrentSong(instance.songList.get(instance.nowIndex));
+                instance.addToRecent(instance.currentSong);//加入最近播放列表
                 try {
                     /*首先初始化*/
                     mediaPlayer.reset();
