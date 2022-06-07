@@ -31,6 +31,22 @@ public class MyApplication extends Application {
     //当前已经播放过的歌的列表
     public List<Song>recentList;
 
+    //当前歌曲时长
+    public int duration;
+
+    //喜欢的歌曲的列表
+    public List<Song>likeList;
+
+
+    public List<Song> getLikeList() {
+        return likeList;
+    }
+
+    public void setLikeList(List<Song> likeList) {
+        this.likeList = likeList;
+    }
+
+
 
     public List<Song> getRecentList() {
         return recentList;
@@ -39,8 +55,6 @@ public class MyApplication extends Application {
     public void setRecentList(List<Song> recentList) {
         this.recentList = recentList;
     }
-    //当前歌曲时长
-    public int duration;
 
     public int getDuration() {
         return duration;
@@ -112,6 +126,7 @@ public class MyApplication extends Application {
         this.mediaPlayer = new MediaPlayer();
         instance = this;
         recentList=new ArrayList<>();
+        likeList=new ArrayList<>();
     }
 
     public void addToRecent(Song song){

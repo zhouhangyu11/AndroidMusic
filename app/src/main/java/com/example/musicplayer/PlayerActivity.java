@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.musicplayer.utils.MusicOperation;
 
@@ -28,6 +29,7 @@ public class PlayerActivity extends Activity {
     SeekBar seekBar;
     TextView now_position;
     TextView total;
+    ImageButton like;
 
     MusicOperation musicOperation=new MusicOperation();
 
@@ -61,14 +63,20 @@ public class PlayerActivity extends Activity {
         seekBar=findViewById(R.id.progress);
         now_position=findViewById(R.id.now_position);
         total=findViewById(R.id.total);
+        like=findViewById(R.id.like_btn);
+
+        like.setImageResource(R.drawable.sudo_grey);
 
         //获取播放器
         MediaPlayer mediaPlayer = instance.getMediaPlayer();
         //导入操作类
         MusicOperation musicOperation = new MusicOperation();
 
+
+
         if (instance.isPlay) {
             play_btn.setImageResource(R.drawable.pausing);
+
         } else {
             play_btn.setImageResource(R.drawable.start);
         }
@@ -119,6 +127,7 @@ public class PlayerActivity extends Activity {
                     imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
+                    like.setImageResource(R.drawable.sudo_grey);
                     seekBar.setProgress(0);
                     instance.addToRecent(instance.currentSong);//加入最近播放列表
 //                    now_position.setText(formatTime("mm:ss",instance.getMediaPlayer().getCurrentPosition()));
@@ -146,6 +155,7 @@ public class PlayerActivity extends Activity {
                     imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
+                    like.setImageResource(R.drawable.sudo_grey);
                     seekBar.setProgress(0);
                     instance.addToRecent(instance.currentSong);//加入最近播放列表
                     try {
@@ -192,6 +202,15 @@ public class PlayerActivity extends Activity {
                 instance.getMediaPlayer().seekTo(seekBar.getProgress());
 
 
+            }
+        });
+
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                like.setImageResource(R.drawable.sudo);
+                instance.likeList.add(instance.getCurrentSong());
+                Toast.makeText(PlayerActivity.this,"《"+instance.getCurrentSong().getSongName()+"》已添加到我喜欢的歌曲",Toast.LENGTH_SHORT).show();
             }
         });
     }

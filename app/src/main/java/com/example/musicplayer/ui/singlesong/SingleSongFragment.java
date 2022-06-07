@@ -1,4 +1,4 @@
-package com.example.musicplayer;
+package com.example.musicplayer.ui.singlesong;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.musicplayer.LocalMusicActivity;
+import com.example.musicplayer.R;
 import com.example.musicplayer.adapter.SongAdapter;
 import com.example.musicplayer.bean.Song;
 

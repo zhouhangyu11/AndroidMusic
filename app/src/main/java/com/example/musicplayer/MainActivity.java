@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     RecentPlay.beginActivity(context);
                     break;
                 case 2:
-                    Toast.makeText(MainActivity.this, "当前点击" + position, Toast.LENGTH_SHORT).show();
+                    LikeActivity.beginActivity(context);
                     break;
             }
         });
