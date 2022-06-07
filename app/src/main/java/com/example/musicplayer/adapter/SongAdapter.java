@@ -1,6 +1,7 @@
 package com.example.musicplayer.adapter;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     mediaPlayer.setDataSource(song.getPath());
                     mediaPlayer.prepare();
                     mediaPlayer.start();
+                    Log.d("1","最长度"+mediaPlayer.getDuration());
 
 
                     /*修改playbarFragment的样子*/

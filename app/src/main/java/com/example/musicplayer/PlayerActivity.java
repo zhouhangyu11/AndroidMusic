@@ -3,6 +3,7 @@ package com.example.musicplayer;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.musicplayer.utils.MusicOperation;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +26,8 @@ public class PlayerActivity extends Activity {
     ImageButton next_btn;
     ImageButton previous_btn;
     SeekBar seekBar;
+    TextView now_position;
+    TextView total;
 
     MusicOperation musicOperation=new MusicOperation();
 
@@ -31,6 +35,15 @@ public class PlayerActivity extends Activity {
     private Timer timer;
     private TimerTask timerTask;
     private boolean isSeekBarChanging;//互斥变量，防止进度条和定时器冲突
+
+    public static String formatTime(String pattern, long milli) {
+        int m = (int) (milli / DateUtils.MINUTE_IN_MILLIS);
+        int s = (int) ((milli / DateUtils.SECOND_IN_MILLIS) % 60);
+        String mm = String.format(Locale.getDefault(), "%02d", m);
+        String ss = String.format(Locale.getDefault(), "%02d", s);
+        return pattern.replace("mm", mm).replace("ss", ss);
+    }
+
 
 
     @Override
@@ -46,6 +59,8 @@ public class PlayerActivity extends Activity {
         next_btn = findViewById(R.id.btn_next);
         previous_btn = findViewById(R.id.btn_previous);
         seekBar=findViewById(R.id.progress);
+        now_position=findViewById(R.id.now_position);
+        total=findViewById(R.id.total);
 
         //获取播放器
         MediaPlayer mediaPlayer = instance.getMediaPlayer();
@@ -66,6 +81,7 @@ public class PlayerActivity extends Activity {
             singerName.setText(instance.getCurrentSong().singerName);
             //设置seekBar的最大长度
             seekBar.setMax(instance.getMediaPlayer().getDuration());
+            total.setText(formatTime("mm:ss",instance.getMediaPlayer().getDuration()));
 
             timerTask=new TimerTask() {
                 @Override
@@ -74,6 +90,7 @@ public class PlayerActivity extends Activity {
                         return;
                     }
                     seekBar.setProgress(instance.getMediaPlayer().getCurrentPosition());
+                    now_position.setText(formatTime("mm:ss",instance.getMediaPlayer().getCurrentPosition()));
 
                 }
             };
@@ -102,6 +119,8 @@ public class PlayerActivity extends Activity {
                     imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
+                    seekBar.setProgress(0);
+//                    now_position.setText(formatTime("mm:ss",instance.getMediaPlayer().getCurrentPosition()));
                     try {
                         //设置资源
                         mediaPlayer.reset();
@@ -109,9 +128,9 @@ public class PlayerActivity extends Activity {
                         mediaPlayer.prepare();
                         mediaPlayer.start();
                         //设置seekBar的最大长度和重新至0
-                        seekBar.setProgress(0);
-                        seekBar.setMax(instance.getMediaPlayer().getDuration());
 
+                        seekBar.setMax(instance.getMediaPlayer().getDuration());
+                        total.setText(formatTime("mm:ss",instance.getMediaPlayer().getDuration()));
                         play_btn.setImageResource(R.drawable.pausing);
 
                     } catch (Exception e) {
@@ -126,7 +145,7 @@ public class PlayerActivity extends Activity {
                     imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
                     songName.setText(instance.getCurrentSong().songName);
                     singerName.setText(instance.getCurrentSong().singerName);
-
+                    seekBar.setProgress(0);
                     try {
                         //设置资源
                         mediaPlayer.reset();
@@ -134,8 +153,9 @@ public class PlayerActivity extends Activity {
                         mediaPlayer.prepare();
                         mediaPlayer.start();
                         //设置seekBar的最大长度和重新至0
-                        seekBar.setProgress(0);
+
                         seekBar.setMax(instance.getMediaPlayer().getDuration());
+                        total.setText(formatTime("mm:ss",instance.getMediaPlayer().getDuration()));
                         play_btn.setImageResource(R.drawable.pausing);
 
                     } catch (Exception e) {
@@ -157,27 +177,7 @@ public class PlayerActivity extends Activity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-               if(seekBar.getProgress()==seekBar.getMax()){
-                    musicOperation.nextSong();
-                    imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
-                    songName.setText(instance.getCurrentSong().songName);
-                    singerName.setText(instance.getCurrentSong().singerName);
-                    try {
-                        //设置资源
-                        mediaPlayer.reset();
-                        mediaPlayer.setDataSource(instance.currentSong.getPath());
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                        //设置seekBar的最大长度和重新至0
-                        seekBar.setProgress(0);
-                        seekBar.setMax(instance.getMediaPlayer().getDuration());
 
-                        play_btn.setImageResource(R.drawable.pausing);
-
-                    } catch (Exception e) {
-
-                    }
-                }
             }
 
             @Override

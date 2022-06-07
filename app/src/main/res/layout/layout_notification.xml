@@ -37,14 +37,15 @@
         android:layout_toRightOf="@+id/notification_img"
         android:layout_marginTop="80dp"
         android:layout_marginLeft="20dp">
+
         <ImageButton
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:id="@+id/notification_previousBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/left"
-            android:background="@android:color/transparent"/>
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/left" />
         <ImageButton
             android:layout_toRightOf="@+id/notification_previousBtn"
             android:layout_marginLeft="35dp"
