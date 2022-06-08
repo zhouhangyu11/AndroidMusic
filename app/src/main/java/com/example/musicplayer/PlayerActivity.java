@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.musicplayer.bean.Song;
 import com.example.musicplayer.utils.MusicOperation;
 
 import java.util.Locale;
@@ -30,6 +32,9 @@ public class PlayerActivity extends Activity {
     TextView now_position;
     TextView total;
     ImageButton like;
+    int nowIndex;
+    MediaPlayer mediaPlayer;
+
 
     MusicOperation musicOperation=new MusicOperation();
 
@@ -68,7 +73,7 @@ public class PlayerActivity extends Activity {
         like.setImageResource(R.drawable.sudo_grey);
 
         //获取播放器
-        MediaPlayer mediaPlayer = instance.getMediaPlayer();
+        mediaPlayer = instance.getMediaPlayer();
         //导入操作类
         MusicOperation musicOperation = new MusicOperation();
 
@@ -84,26 +89,22 @@ public class PlayerActivity extends Activity {
 
         //设置控件
         if (instance.currentSong != null) {//如果当前有歌正在播放，则显示专辑封面和名称
-            imageView.setImageBitmap(instance.getCurrentSong().albumBitmap);
-            songName.setText(instance.getCurrentSong().songName);
-            singerName.setText(instance.getCurrentSong().singerName);
-            //设置seekBar的最大长度
-            seekBar.setMax(instance.getMediaPlayer().getDuration());
-            total.setText(formatTime("mm:ss",instance.getMediaPlayer().getDuration()));
+            setSongInfo();
 
-            timerTask=new TimerTask() {
+            timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    if(isSeekBarChanging==true){
-                        return;
+                    /*判断是否需要更新图片*/
+                    if (nowIndex != instance.getNowIndex()) {
+                        Log.d("TAG", "run: " + "entered");
+                        setSongInfo();
                     }
-                    seekBar.setProgress(instance.getMediaPlayer().getCurrentPosition());
-                    now_position.setText(formatTime("mm:ss",instance.getMediaPlayer().getCurrentPosition()));
-
+                    seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                    now_position.setText(formatTime("mm:ss", mediaPlayer.getCurrentPosition()));
                 }
             };
             timer = new Timer();
-            timer.schedule(timerTask,0,1);
+            timer.schedule(timerTask, 0, 1000);
 
 
             play_btn.setOnClickListener(new View.OnClickListener() {
@@ -213,6 +214,23 @@ public class PlayerActivity extends Activity {
                 Toast.makeText(PlayerActivity.this,"《"+instance.getCurrentSong().getSongName()+"》已添加到我喜欢的歌曲",Toast.LENGTH_SHORT).show();
             }
         });
+
+    }
+    public void setSongInfo() {
+        try {
+            Song song = instance.currentSong;
+            //设置seekBar的最大长度，可能会发生错误
+            seekBar.setMax(song.getDuration());
+            total.setText(formatTime("mm:ss", song.getDuration()));
+            // 设置图片
+            imageView.setImageBitmap(song.albumBitmap);
+            songName.setText(song.songName);
+            singerName.setText(song.singerName);
+            // 获得当前索引
+            nowIndex = instance.getNowIndex();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

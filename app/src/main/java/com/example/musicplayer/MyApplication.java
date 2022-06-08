@@ -4,7 +4,9 @@ import android.app.Application;
 import android.media.MediaPlayer;
 
 import com.example.musicplayer.bean.Song;
+import com.example.musicplayer.utils.MusicOperation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,11 +124,33 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        /*初始化最近播放列表*/
+        recentList = new ArrayList<>();
+        likeList=new ArrayList<>();
         /*初始化mediaPlayer*/
         this.mediaPlayer = new MediaPlayer();
+        /*设置播放完成事件*/
+        this.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                MusicOperation.nextSong();
+                try {
+                    mediaPlayer.reset();
+                    mediaPlayer.setDataSource(currentSong.path);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        this.mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                return false;
+            }
+        });
         instance = this;
-        recentList=new ArrayList<>();
-        likeList=new ArrayList<>();
     }
 
     public void addToRecent(Song song){
